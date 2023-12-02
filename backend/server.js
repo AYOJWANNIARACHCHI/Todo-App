@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 require('dotenv').config();
 
+const Task = require("./routes/Task_Route");
 
 const mogoUri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}?retryWrites=true&w=majority`;
 mongoose.connect(mogoUri).then(() => {
@@ -12,7 +13,8 @@ mongoose.connect(mogoUri).then(() => {
     console.log(error + "Fail to Connect with MongoDB...");
 });
 
-app.use(bodyParser.json);
+app.use(bodyParser.json());
+app.use("/mytodo", Task);
 
 const port = process.env.PORT || 8085
 app.listen(port, () => {
